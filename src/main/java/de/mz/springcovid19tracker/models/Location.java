@@ -117,6 +117,29 @@ public class Location {
 		this.countryCode = countryCode;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Location [id=");
+		builder.append(id);
+		builder.append(", province=");
+		builder.append(province);
+		builder.append(", country=");
+		builder.append(country);
+		builder.append(", countryCode=");
+		builder.append(countryCode);
+		builder.append(", coordinates=");
+		builder.append(coordinates);
+		builder.append(", histories=");
+		builder.append(histories);
+		builder.append(", latest=");
+		builder.append(latest);
+		builder.append(", lastUpdated=");
+		builder.append(lastUpdated);
+		builder.append("]");
+		return builder.toString();
+	}
+
 
 
 
