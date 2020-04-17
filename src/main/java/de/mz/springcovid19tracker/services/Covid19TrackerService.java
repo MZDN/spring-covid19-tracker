@@ -200,7 +200,6 @@ public class Covid19TrackerService {
 	}
 	
 	public String getCountryCodeByName(String countryName) {
-
 		String[] locales = Locale.getISOCountries();
 		HashMap <String,String> NOT_FOUND_IN_ISO = new HashMap<String, String>();
 		NOT_FOUND_IN_ISO.put("Antigua and Barbuda", "AG");
@@ -208,6 +207,11 @@ public class Covid19TrackerService {
 		NOT_FOUND_IN_ISO.put("Cabo Verde", "CV");
 		for (String countryCode : locales) {
 			Locale obj = new Locale("", countryCode);
+			if(countryCode.equals("US") && countryName.equals("US")) {
+				//System.out.println(obj.getDisplayCountry());
+				return countryCode;
+				
+			}
 			if(obj.getDisplayCountry().equals(countryName)) {
 				return countryCode;
 			}else if(NOT_FOUND_IN_ISO.containsKey(countryName)) {
