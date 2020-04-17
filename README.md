@@ -1,7 +1,8 @@
 # spring-covid19-tracker
-Java Spring boot API for tracking coronavirus (COVID-19) based on JHU
+Java Spring boot API for tracking coronavirus (COVID-19) based on JHU Data
 
-## Data source:
+### Data source:
+
 JHU data - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). 
 
 ### Development && Run
