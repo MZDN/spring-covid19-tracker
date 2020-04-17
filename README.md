@@ -27,7 +27,7 @@ java -jar target/spring-covid19-tracker-0.0.1-SNAPSHOT.jar
 
 ### API Access
 ```
-Go [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+Go [ http://localhost:8080/swagger-ui.html ]( http://localhost:8080/swagger-ui.html )
 ```
 
 ### Test
