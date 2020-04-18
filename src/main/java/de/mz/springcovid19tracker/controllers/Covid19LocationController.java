@@ -118,24 +118,7 @@ public class Covid19LocationController {
 			}
 		}
 		return new ResponseEntity<Latest>(HttpStatus.NOT_FOUND);
-	}
-	
-	@GetMapping("/confirmed")
-	public ArrayList<Location> confirmed() {
-		//TODO
-		return null;
-	}
-	@GetMapping("/deaths")
-	public ArrayList<Location> deaths() {
-		//TODO
-		return null;
-		
-	}
-	@GetMapping("/recovered")
-	public ArrayList<Location> recovered() {
-		//TODO
-		return null;
-	}
+	}	
 	
 	@GetMapping("/latest")
 	public Latest latest() {
