@@ -1,0 +1,269 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: covid-19-location-controller
+    description: Covid 19 Location Controller
+paths:
+  /api/v1/confirmed:
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: confirmed
+      operationId: confirmedUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /api/v1/deaths:
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: deaths
+      operationId: deathsUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /api/v1/latest:
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: latest
+      operationId: latestUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Latest'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /api/v1/locations:
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: locations
+      operationId: locationsUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Locations'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/api/v1/locations/country/latest/{countryCode}':
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: getLocationsCountryLatestByCountryCode
+      operationId: getLocationsCountryLatestByCountryCodeUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: countryCode
+          in: path
+          description: countryCode
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Latest'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/api/v1/locations/country/{countryCode}':
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: getLocationsByCountryCode
+      operationId: getLocationsByCountryCodeUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: countryCode
+          in: path
+          description: countryCode
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Location'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/api/v1/locations/{id}':
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: getLocationsById
+      operationId: getLocationsByIdUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Location'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /api/v1/recovered:
+    get:
+      tags:
+        - covid-19-location-controller
+      summary: recovered
+      operationId: recoveredUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+definitions:
+  Coordinates:
+    type: object
+    properties:
+      lat:
+        type: string
+      lon:
+        type: string
+    title: Coordinates
+  History:
+    type: object
+    properties:
+      date:
+        type: string
+      number:
+        type: integer
+        format: int32
+    title: History
+  Latest:
+    type: object
+    properties:
+      confirmed:
+        type: integer
+        format: int32
+      deaths:
+        type: integer
+        format: int32
+      recovered:
+        type: integer
+        format: int32
+    title: Latest
+  Location:
+    type: object
+    properties:
+      coordinates:
+        $ref: '#/definitions/Coordinates'
+      country:
+        type: string
+      countryCode:
+        type: string
+      histories:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            $ref: '#/definitions/History'
+      id:
+        type: integer
+        format: int32
+      lastUpdated:
+        type: string
+      latest:
+        $ref: '#/definitions/Latest'
+      province:
+        type: string
+    title: Location
+  Locations:
+    type: object
+    properties:
+      latest:
+        $ref: '#/definitions/Latest'
+      locations:
+        type: array
+        items:
+          $ref: '#/definitions/Location'
+    title: Locations

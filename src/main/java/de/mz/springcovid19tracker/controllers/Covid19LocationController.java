@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import de.mz.springcovid19tracker.exceptions.ResourceNotFoundException;
 import de.mz.springcovid19tracker.models.Latest;
@@ -60,6 +61,7 @@ import de.mz.springcovid19tracker.services.Covid19TrackerService;
 
 @RestController
 @Validated
+@EnableWebMvc
 @RequestMapping("/api/v1")
 public class Covid19LocationController {
 	@Autowired
