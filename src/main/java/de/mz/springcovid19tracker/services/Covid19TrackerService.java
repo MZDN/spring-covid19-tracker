@@ -84,7 +84,7 @@ public class Covid19TrackerService {
 
 
 	@PostConstruct
-	@Scheduled(cron = "* * 1 * * *")
+	@Scheduled(cron = "0 0/1 * * * *")
 	public void fetchCovid19Data() throws IOException, InterruptedException {
 		updateTimeUTC = Instant.now();
 		CSVParser parserConfirmed = getData(confirmedDataURL);
@@ -162,6 +162,10 @@ public class Covid19TrackerService {
 		
 		this.latest = totalLatest;		
 		this.allLocations = newAllLocations;
+		// Reset values
+		totalConfirmed=0;
+		totalDeaths=0;
+		totalRecovered=0;
 	}
 	
 		
