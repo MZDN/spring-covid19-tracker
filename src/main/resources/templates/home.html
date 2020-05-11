@@ -28,7 +28,7 @@
       <tr>
         <th>#</th>
         <th>country</th>
-        <th>province</th>
+        <!-- th>province</th-->
         <th>code</th>
         <th>confirmed</th>
         <th>deaths</th>
@@ -37,7 +37,7 @@
       <tr th:each="loc,iterator : ${locations}">
       	<td th:text="${iterator.index+1}"></td>
         <td th:text="${loc.country}"></td>
-        <td th:text="${loc.province}"></td>
+        <!--  td th:text="${loc.province}"></td-->
         <td th:text="${loc.countryCode}"></td>
         <td th:text="${loc.latest.confirmed}"></td>
         <td th:text="${loc.latest.deaths}"></td>
