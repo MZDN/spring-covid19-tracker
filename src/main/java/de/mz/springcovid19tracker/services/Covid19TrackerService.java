@@ -127,9 +127,7 @@ public class Covid19TrackerService {
 			String lat = confirmed.get("Lat");
 			String lon = confirmed.get("Long");
 
-			if(country.equals("France")) {
-				System.out.println(country);
-			}
+
 			Coordinates coordinates = new Coordinates(lat, lon);
  
 			totalConfirmed += Integer.valueOf(confirmed.get(headers.size() - 1));
