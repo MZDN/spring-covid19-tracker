@@ -70,6 +70,7 @@ public class Covid19TrackerService {
 	private Latest latest = null;
 
 	private HashMap<Latest, ArrayList<Locations>> locationsData = new HashMap<Latest, ArrayList<Locations>>();
+	
 
 	private ArrayList<Locations> allLocations = new ArrayList<>();
 	private int totalConfirmed = 0;
@@ -126,6 +127,9 @@ public class Covid19TrackerService {
 			String lat = confirmed.get("Lat");
 			String lon = confirmed.get("Long");
 
+			if(country.equals("France")) {
+				System.out.println(country);
+			}
 			Coordinates coordinates = new Coordinates(lat, lon);
  
 			totalConfirmed += Integer.valueOf(confirmed.get(headers.size() - 1));
@@ -135,10 +139,10 @@ public class Covid19TrackerService {
 			ArrayList<History> histConfirmedArrayList = new ArrayList<History>();
 			ArrayList<History> histDeathsArrayList = new ArrayList<History>();
 			ArrayList<History> histRecoveredArrayList = new ArrayList<History>();
-
-			histConfirmedArrayList = getCountryHistories(country, recordsConfirmed);
-			histDeathsArrayList = getCountryHistories(country, recordsDeaths);
-			histRecoveredArrayList = getCountryHistories(country, recordsRecovered);
+			if(province.trim().equals("")){
+			histConfirmedArrayList.addAll(getCountryHistories(country, recordsConfirmed));
+			histDeathsArrayList.addAll(getCountryHistories(country, recordsDeaths));
+			histRecoveredArrayList.addAll(getCountryHistories(country, recordsRecovered));
 			
 			countryConfirmed = histConfirmedArrayList.get(histConfirmedArrayList.size() - 1).getNumber();
 			countryDeaths = histDeathsArrayList.get(histDeathsArrayList.size() - 1).getNumber();
@@ -154,6 +158,7 @@ public class Covid19TrackerService {
 			String countryCode = getCountryCodeByName(country);
 			Location location = new Location(i,province, country,countryCode, coordinates, histories, countryLatest,updateTimeUTC.toString());
 			newLocations.add(location);
+			}
 		}
 		
 		Latest totalLatest = new Latest(totalConfirmed, totalDeaths, totalRecovered);
@@ -171,12 +176,20 @@ public class Covid19TrackerService {
 		
 	private ArrayList<History> getCountryHistories(String countryName, List<CSVRecord> records) {
 		ArrayList<History> histArrayList = new ArrayList<History>();
+		List<String> processedList = new ArrayList<>();
 		
 		Set<String> headers = records.iterator().next().toMap().keySet();
 		Object[] headersArray = headers.toArray();
 	
 		for(CSVRecord record : records ) 	{
-			if(countryName.equals(record.get("Country/Region"))){
+			
+			String c = record.get("Country/Region");
+			String p = record.get("Province/State");
+			if(!p.trim().equals("")) {
+				//System.out.println(c+" "+p);
+			}
+			
+			if(countryName.equals(record.get("Country/Region")) && p.trim().equals("")){
 				
 				for (int k = 4; k < headers.size(); k++) {
 
@@ -186,12 +199,16 @@ public class Covid19TrackerService {
 					histArrayList.add(history);
 				}
 				
+				
 			}	
+			processedList.add(countryName);
 		}
 		return histArrayList;
 
 	}
-
+	private boolean processedCountry(String country) {
+		return false;
+	}
 	private CSVParser getData(String URL) throws IOException, InterruptedException {
 		HttpClient client = HttpClient.newHttpClient();
 
