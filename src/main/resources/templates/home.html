@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Spring covid19 t</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+
+  <body>
+  
+    <div class="jumbotron">
+    <table>
+      <tr>
+        <th>confirmed</th>
+        <th>deaths</th>
+        <th>recovered</th>
+      </tr>
+      <tr >
+        <td th:text="${latest.confirmed}"></td>
+        <td th:text="${latest.deaths}"></td>
+        <td th:text="${latest.recovered}"></td>
+      </tr>
+    </table>
+    </div>
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <th>country</th>
+        <th>province</th>
+        <th>code</th>
+        <th>confirmed</th>
+        <th>deaths</th>
+        <th>recovered</th>
+      </tr>
+      <tr th:each="loc,iterator : ${locations}">
+      	<td th:text="${iterator.index+1}"></td>
+        <td th:text="${loc.country}"></td>
+        <td th:text="${loc.province}"></td>
+        <td th:text="${loc.countryCode}"></td>
+        <td th:text="${loc.latest.confirmed}"></td>
+        <td th:text="${loc.latest.deaths}"></td>
+        <td th:text="${loc.latest.recovered}"></td>
+        <!--  td th:text="${'confirmed:' +loc.latest.confirmed +' deaths:' +loc.latest.deaths +' recovered:' +loc.latest.recovered }"></td-->
+      </tr>
+    </table>
+  
+  </body>
+
+</html>
